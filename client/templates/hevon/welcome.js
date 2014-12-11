@@ -3,12 +3,9 @@ Template.welcome.created = function() {
 }
 
 Template.welcome.helpers({
-    /*errorMessage: function(field) {
-        return Session.get('postEditErrors')[field];
-    },
-    errorClass: function (field) {
-        return !!Session.get('postEditErrors')[field] ? 'has-error' : '';
-    }*/
+    transacs: function() {
+        return Transaction_user.find();
+    }
 });
 
 Template.welcome.events({

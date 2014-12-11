@@ -21,13 +21,14 @@
             <li class="{{activeRouteClass  'welcome'}}">
                 <a href="{{pathFor 'welcome'}}">Welcome</a>
             </li>
+            <li class="{{activeRouteClass 'account'}}">
+                <a href="{{pathFor 'account'}}">Account</a>
+            </li>
+            <li class="{{activeRouteClass 'transfer'}}">
+                <a href="{{pathFor 'transfer'}}">Transfer</a>
+            </li>
           {{#if currentUser}}
-              <li class="{{activeRouteClass 'welcome'}}">
-                  <a href="{{pathFor 'welcome'}}">Account</a>
-              </li>
-              <li class="{{activeRouteClass 'welcome'}}">
-                  <a href="{{pathFor 'welcome'}}">Transfert</a>
-              </li>
+
             <li class="dropdown">
               {{> notifications}}
             </li>
