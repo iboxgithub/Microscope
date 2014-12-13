@@ -2,9 +2,9 @@ Template.account.created = function() {
 };
 
 Template.account.helpers({
-    userInfos: function() {
-        //return Meteor.users.find();
-        return Posts.find();
+    userTransacs: function() {
+        console.log('TEST  ' + userId);
+        return Transaction_user.find({id_user:'kWGZA7btmNq3AkN8B'/*this.currentUser*/});
     }
 });
 

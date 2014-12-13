@@ -24,3 +24,5 @@ Meteor.publish('notifications', function() {
 Meteor.publish('transaction_user', function() {
   return Transaction_user.find();
 });
+
+
