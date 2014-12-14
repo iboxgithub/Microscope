@@ -1,25 +1,73 @@
 <template name="transfer">
-    transfer
+    TRANSFER
     <div class="panel panel-default">
         <!-- Default panel contents -->
         <div class="panel-heading">Account Informations</div>
-        <div class="panel-body">
-            <p>Please find below your parameters</p>
-        </div>
-
-        <!-- Table -->
-        <table class="table">
-            <td>
+        <form class="main form">
+            <div class="form-group">
+                <label class="control-label" for="amount_from">Amount (max : 1 000 000 units)</label>
+                <div class="amount_from">
+                    <input name="amount_from" id="amount_from" type="number" value="" min=0 max=1000000 placeholder="Amount" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="ccy_from">Currency from</label>
+                <div class="ccy_from">
+                    <input name="ccy_from" id="ccy_from" type="text" value="" placeholder="Currency from" class="form-control"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="ccy_to">Currency to</label>
+                <div class="ccy_to">
+                    <input name="ccy_to" id="ccy_to" type="text" value="" placeholder="Currency to" class="form-control"/>
+                </div>
+            </div>
+            <table>
                 <tr>
-                    lolo
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label" for="amount_to">Amount received</label>
+                            <div class="amount_to">
+                                <input name="amount_to" id="amount_to" type="text" value="" placeholder="Amount received" class="form-control" readonly/>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label" for="fee">Hevon fee</label>
+                            <div class="controls">
+                                <input name="fee" id="fee" type="text" value="" placeholder="Hevon fee" class="form-control" readonly/>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <label class="control-label" for="rate">Rate</label>
+                            <div class="controls">
+                                <input name="rate" id="rate" type="text" value="" placeholder="Rate" class="form-control" readonly/>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
-            </td>
-            <td>
-                <tr>
-                    lolo2
-                </tr>
-            </td>
-        </table>
+            </table>
+            <input type="submit" value="Submit" class="btn btn-primary"/>
+        </form>
+        <textarea id="output" rows="4" cols="100" readonly>
+            Hevon : a world without borders.
+        </textarea>
     </div>
-
 </template>
+
+<!-- Single button
+<div class="btn-group">
+    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+        CCY FROM <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+        <li><a href="#">EUR</a></li>
+        <li><a href="#">USD</a></li>
+        <li><a href="#">GBP</a></li>
+        <li><a href="#">CZK</a></li>
+        <li class="divider"></li>
+        <li><a href="#">Other currency</a></li>
+    </ul>-->

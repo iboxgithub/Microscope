@@ -5,34 +5,110 @@
         You are not logged in
     {{/unless}}
     {{#if currentUser}}
-        Username : {{currentUser.username}}
         <div class="panel panel-info">
             <div class="panel-body">
-                User Info : {{currentUser._id}}
+                User : {{currentUser._id}}
             </div>
             <div class="panel-footer">
-                <div class="input-group">
-                    <span class="input-group-addon">Username</span>
-                    <input type="text" class="form-control" placeholder="Username" value="{{currentUser.username}}">
-                </div>
-                <br>
-                <div class="input-group">
-                    <span class="input-group-addon">@</span>
-                    <input type="text" class="form-control" value="{{currentUser.emails.[0].address}}">
 
-                </div>
-                <br>
-                <div class="input-group">
-                    <span class="input-group-addon">Full name</span>
-                    <input type="text" class="form-control" value="{{currentUser.profile.name}} {{currentUser.profile.surname}}">
-                </div>
-                <br>
-                <div class="input-group">
-                    <span class="input-group-addon">Address</span>
-                    <input type="text" class="form-control" value="{{currentUser.profile.address}}">
+                <div class="panel panel-success">
+                    <div class="panel-body">
+                        Informations
+                    </div>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            <span class="input-group-addon">Username</span>
+                            <input type="text" class="form-control" placeholder="Username" value="{{currentUser.username}}">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">@</span>
+                            <input type="text" class="form-control" value="{{currentUser.emails.[0].address}}">
+
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">Full name</span>
+                            <input type="text" class="form-control" value="{{currentUser.profile.name}} {{currentUser.profile.surname}}">
+                        </div>
+                        <br>
+                        <div class="input-group">
+                            <span class="input-group-addon">Address</span>
+                            <input type="text" class="form-control" value="{{currentUser.profile.address}}">
+                        </div>
+                    </div>
                 </div>
 
-                <br>
+                <div class="panel panel-success">
+                    <div class="panel-body">
+                        Transactions Monitor
+                    </div>
+                    <div class="panel-footer">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+                            {{#each userTransacs}}
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="{{_id}}">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#{{_id}}ref" aria-expanded="false" aria-controls="{{_id}}">
+                                                Transaction: {{_id}}
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="{{_id}}ref" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{_id}}">
+                                        <div class="panel-body">
+                                            <ul class="list-group">
+                                                <li class="list-group-item list-group-item-info">
+                                                    <!--<div class="panel-heading">Transaction information</div>-->
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>amount_from</th>
+                                                            <th>ccy_from</th>
+                                                            <th>date</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>{{amount_from}}</td>
+                                                            <td>{{ccy_from}}</td>
+                                                            <td>{{date_creation}}</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </li>
+                                                <li class="list-group-item list-group-item-success">
+                                                    <!--<div class="panel-heading">Conversions</div>-->
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>date</th>
+                                                            <th>phase</th>
+                                                            <th>amount_converted</th>
+                                                            <th>rate</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {{#each conversions}}
+                                                            <tr>
+                                                                <td>{{date}}</td>
+                                                                <td>{{phase}}</td>
+                                                                <td>{{amount_converted}}</td>
+                                                                <td>{{rate}}</td>
+                                                            </tr>
+                                                        {{/each}}
+                                                        </tbody>
+                                                    </table>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
 
                 <div class="panel panel-success">
                     <div class="panel-body">
@@ -61,71 +137,7 @@
                         </table>
                     </div>
                 </div>
-TOTO
-                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-                    {{#each userTransacs}}
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="{{_id}}">
-                                <h4 class="panel-title">
-                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#{{_id}}ref" aria-expanded="false" aria-controls="{{_id}}">
-                                        Transaction: {{_id}}
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="{{_id}}ref" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{{_id}}">
-                                <div class="panel-body">
-                                    <ul class="list-group">
-                                        <li class="list-group-item list-group-item-info">
-                                            <!--<div class="panel-heading">Transaction information</div>-->
-                                            <table class="table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th>amount_from</th>
-                                                    <th>ccy_from</th>
-                                                    <th>date</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>{{amount_from}}</td>
-                                                    <td>{{ccy_from}}</td>
-                                                    <td>{{date_creation}}</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </li>
-                                        <li class="list-group-item list-group-item-success">
-                                            <!--<div class="panel-heading">Conversions</div>-->
-                                            <table class="table table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th>date</th>
-                                                    <th>phase</th>
-                                                    <th>amount_converted</th>
-                                                    <th>rate</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                {{#each conversions}}
-                                                    <tr>
-                                                        <td>{{date}}</td>
-                                                        <td>{{phase}}</td>
-                                                        <td>{{amount_converted}}</td>
-                                                        <td>{{rate}}</td>
-                                                    </tr>
-                                                {{/each}}
-                                                </tbody>
-                                            </table>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                    {{/each}}
-                </div>
-TITI
             </div>
         </div>
     {{/if}}
