@@ -5,6 +5,7 @@ Template.transfer.created = function() {
     // - the array of ccy/rate accepted
     // - the array of client's reserves his different currencies
     // - token (in the future for a secure OAuth access)
+    console.log('test : ');
 };
 
 Template.transfer.helpers({

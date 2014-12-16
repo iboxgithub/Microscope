@@ -22,7 +22,15 @@ Meteor.publish('notifications', function() {
 });
 
 Meteor.publish('transaction_user', function() {
-  return Transaction_user.find();
+  return Transaction_user.find({id_user:this.userId});
+});
+
+Meteor.publish('currenciesAndRates', function() {
+  return Currencies.findOne();
+});
+
+Meteor.publish('userWallets', function() {
+  return Meteor.users.findOne({_id: this.userId},{'profile.ccy':1});
 });
 
 
