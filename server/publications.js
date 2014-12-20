@@ -11,7 +11,6 @@ Meteor.publish('singlePost', function(id) {
   return Posts.find(id);
 });
 
-
 Meteor.publish('comments', function(postId) {
   check(postId, String);
   return Comments.find({postId: postId});
@@ -25,8 +24,9 @@ Meteor.publish('transaction_user', function() {
   return Transaction_user.find({id_user:this.userId});
 });
 
-Meteor.publish('currenciesAndRates', function() {
-  return Currencies.findOne();
+Meteor.publish('currencies', function() {
+  console.log('sdvvdfv');
+  return Currencies.find({_id:'5442a22595a258de2fb6860e'});
 });
 
 Meteor.publish('userWallets', function() {

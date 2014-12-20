@@ -6,6 +6,9 @@ Template.transfer.created = function() {
     // - the array of client's reserves his different currencies
     // - token (in the future for a secure OAuth access)
     console.log('test : ');
+    //var temp = Transaction_user.findOne();
+    //var temp = Currencies.find();
+    //console.log('TEST1 : '+JSON.stringify(temp,null,4));
 };
 
 Template.transfer.helpers({
