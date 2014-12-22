@@ -1,27 +1,50 @@
 <template name="transfer">
-    TRANSFER #{{_id}}--{{toto}}#
+    TRANSFER #{{_id}}--{{EUR.USD}}#
     <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading">Account Informations</div>
+        <div class="panel-heading">Transfer informations</div>
         <form class="main form">
-            <div class="form-group">
-                <label class="control-label" for="amount_from">Amount (max : 1 000 000 units)</label>
-                <div class="amount_from">
-                    <input name="amount_from" id="amount_from" type="number" value="" min=0 max=1000000 placeholder="Amount" class="form-control"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="ccy_from">Currency from</label>
-                <div class="ccy_from">
-                    <input name="ccy_from" id="ccy_from" type="text" value="" placeholder="Currency from" class="form-control"/>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="ccy_to">Currency to</label>
-                <div class="ccy_to">
-                    <input name="ccy_to" id="ccy_to" type="text" value="" placeholder="Currency to" class="form-control"/>
-                </div>
-            </div>
+            <table>
+                <tr>
+                    <td style="padding:0 15px 0 15px;">
+                        <label class="control-label" for="btn_ccy_to">Select the currency you want :</label>
+                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                            {{#each ccyListTo}}
+                                <div class="btn-group" role="group" id="btn_ccy_to">
+                                    <button id="ccy_to_{{this}}" type="button" class="btn btn_ccy_to btn-info" value="{{this}}">
+                                        {{this}}
+                                    </button>
+                                </div>
+                            {{/each}}
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="amount_to">Amount you get</label>
+                            <div class="amount_from">
+                                <input name="amount_to" id="amount_to" type="number" min=1 max=1000000 placeholder="Could you select a wallet?" class="form-control"/>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="padding:0 15px 0 15px;">
+                        <label class="control-label" for="btn_ccy_from">Select the wallet you will use :</label>
+                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                            {{#each ccyListFrom}}
+                                <div class="btn-group" role="group" id="btn_ccy_from">
+                                    <button id="ccy_from_{{this}}" type="button" class="btn btn_ccy_from btn-info" value="{{this}}">
+                                        {{this}}
+                                    </button>
+                                </div>
+                            {{/each}}
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="amount_from">Amount you spend</label>
+                            <div class="amount_from">
+                                <input name="amount_from" id="amount_from" type="number" min=1 max=1000000 placeholder="Could you select which currency you want?" class="form-control"/>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
             <table>
                 <tr>
                     <td>

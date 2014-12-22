@@ -26,7 +26,7 @@ Meteor.publish('transaction_user', function() {
 
 Meteor.publish('currencies', function() {
   console.log('sdvvdfv');
-  return Currencies.find({_id:'5442a22595a258de2fb6860e'});
+  return Currencies.find();
 });
 
 Meteor.publish('userWallets', function() {
