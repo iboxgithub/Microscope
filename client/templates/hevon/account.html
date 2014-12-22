@@ -11,33 +11,69 @@
             </div>
             <div class="panel-footer">
 
-                <div class="panel panel-success">
-                    <div class="panel-body">
-                        Informations
-                    </div>
-                    <div class="panel-footer">
-                        <div class="input-group">
-                            <span class="input-group-addon">Username</span>
-                            <input type="text" class="form-control" placeholder="Username" value="{{currentUser.username}}">
-                        </div>
-                        <br>
-                        <div class="input-group">
-                            <span class="input-group-addon">@</span>
-                            <input type="text" class="form-control" value="{{currentUser.emails.[0].address}}">
+                <table>
+                    <tr>
+                        <td>
+                            <div class="panel panel-success">
+                                <div class="panel-body">
+                                    Informations
+                                </div>
+                                <div class="panel-footer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Username</span>
+                                        <input type="text" class="form-control" placeholder="Username" value="{{currentUser.username}}">
+                                    </div>
+                                    <br>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">@</span>
+                                        <input type="text" class="form-control" value="{{currentUser.emails.[0].address}}">
 
-                        </div>
-                        <br>
-                        <div class="input-group">
-                            <span class="input-group-addon">Full name</span>
-                            <input type="text" class="form-control" value="{{currentUser.profile.name}} {{currentUser.profile.surname}}">
-                        </div>
-                        <br>
-                        <div class="input-group">
-                            <span class="input-group-addon">Address</span>
-                            <input type="text" class="form-control" value="{{currentUser.profile.address}}">
-                        </div>
-                    </div>
-                </div>
+                                    </div>
+                                    <br>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Full name</span>
+                                        <input type="text" class="form-control" value="{{currentUser.profile.name}} {{currentUser.profile.surname}}">
+                                    </div>
+                                    <br>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Address</span>
+                                        <input type="text" class="form-control" value="{{currentUser.profile.address}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td style="padding:0 15px 0 15px;">
+                            <div class="panel panel-success">
+                                <div class="panel-body">
+                                    Wallets Monitor
+                                </div>
+                                <div class="panel-footer">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <tr>
+                                            <th>EUR</th>
+                                            <th>USD</th>
+                                            <th>GBP</th>
+                                            <th>CZK</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <!--PENSER à mettre une boucle ici :
+                                        on loop sur tout le stock de devise ("each profile.ccy)-->
+                                        <tr>
+                                            <td>{{currentUser.profile.ccy.EUR}}</td>
+                                            <td>{{currentUser.profile.ccy.USD}}</td>
+                                            <td>{{currentUser.profile.ccy.GBP}}</td>
+                                            <td>{{currentUser.profile.ccy.CZK}}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
 
                 <div class="panel panel-success">
                     <div class="panel-body">
@@ -110,33 +146,7 @@
                     </div>
                 </div>
 
-                <div class="panel panel-success">
-                    <div class="panel-body">
-                        Wallets Monitor
-                    </div>
-                    <div class="panel-footer">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>EUR</th>
-                                <th>USD</th>
-                                <th>GBP</th>
-                                <th>CZK</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <!--PENSER à mettre une boucle ici :
-                            on loop sur tout le stock de devise ("each profile.ccy)-->
-                            <tr>
-                                <td>{{currentUser.profile.ccy.EUR}}</td>
-                                <td>{{currentUser.profile.ccy.USD}}</td>
-                                <td>{{currentUser.profile.ccy.GBP}}</td>
-                                <td>{{currentUser.profile.ccy.CZK}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+
 
             </div>
         </div>

@@ -1,29 +1,11 @@
 <template name="transfer">
-    TRANSFER #{{_id}}--{{EUR.USD}}#
+    TRANSFER
     <div class="panel panel-default">
         <!-- Default panel contents -->
         <div class="panel-heading">Transfer informations</div>
         <form class="main form">
             <table>
                 <tr>
-                    <td style="padding:0 15px 0 15px;">
-                        <label class="control-label" for="btn_ccy_to">Select the currency you want :</label>
-                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                            {{#each ccyListTo}}
-                                <div class="btn-group" role="group" id="btn_ccy_to">
-                                    <button id="ccy_to_{{this}}" type="button" class="btn btn_ccy_to btn-info" value="{{this}}">
-                                        {{this}}
-                                    </button>
-                                </div>
-                            {{/each}}
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" for="amount_to">Amount you get</label>
-                            <div class="amount_from">
-                                <input name="amount_to" id="amount_to" type="number" min=1 max=1000000 placeholder="Could you select a wallet?" class="form-control"/>
-                            </div>
-                        </div>
-                    </td>
                     <td style="padding:0 15px 0 15px;">
                         <label class="control-label" for="btn_ccy_from">Select the wallet you will use :</label>
                         <div class="btn-group btn-group-justified" role="group" aria-label="...">
@@ -38,41 +20,43 @@
                         <div class="form-group">
                             <label class="control-label" for="amount_from">Amount you spend</label>
                             <div class="amount_from">
-                                <input name="amount_from" id="amount_from" type="number" min=1 max=1000000 placeholder="Could you select which currency you want?" class="form-control"/>
+                                <input name="amount_from" id="amount_from" type="number" step="any" min=1 max=1000000 placeholder="Could you select which currency you want?" class="form-control"/>
                             </div>
                         </div>
+                    </td>
+                    <td style="padding:0 0px 0 0px;">
+                        <label class="control-label" for="btn_ccy_to">Select the currency you want :</label>
+                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                            {{#each ccyListTo}}
+                                <div class="btn-group" role="group" id="btn_ccy_to">
+                                    <button id="ccy_to_{{this}}" type="button" class="btn btn_ccy_to btn-info" value="{{this}}">
+                                        {{this}}
+                                    </button>
+                                </div>
+                            {{/each}}
+                        </div>
+                        <tr>
+                            <td style="padding:0 0px 0 0px;">
+                                <div class="form-group">
+                                    <label class="control-label" for="amount_to">Amount you get</label>
+                                    <div class="amount_from">
+                                        <input name="amount_to" id="amount_to" type="number" step="any" min=1 max=1000000 placeholder="Could you select a wallet?" class="form-control"/>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="padding:0 15px 0 15px;">
+                                <div class="form-group">
+                                    <label class="control-label" for="midmarket_displayed">With this rate</label>
+                                    <div class="midmarket_displayed">
+                                        <input name="midmarket_displayed" id="midmarket_displayed" type="number" step="any" min=1 max=1000000 placeholder="Your rate" class="form-control"/>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
                     </td>
                 </tr>
             </table>
 
-            <table>
-                <tr>
-                    <td>
-                        <div class="form-group">
-                            <label class="control-label" for="amount_to">Amount received</label>
-                            <div class="amount_to">
-                                <input name="amount_to" id="amount_to" type="text" value="" placeholder="Amount received" class="form-control" readonly/>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group">
-                            <label class="control-label" for="fee">Hevon fee</label>
-                            <div class="controls">
-                                <input name="fee" id="fee" type="text" value="" placeholder="Hevon fee" class="form-control" readonly/>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="form-group">
-                            <label class="control-label" for="rate">Rate</label>
-                            <div class="controls">
-                                <input name="rate" id="rate" type="text" value="" placeholder="Rate" class="form-control" readonly/>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
             <input type="submit" value="Submit" class="btn btn-primary"/>
         </form>
         <textarea id="output" rows="4" cols="100" readonly>
@@ -94,3 +78,33 @@
         <li class="divider"></li>
         <li><a href="#">Other currency</a></li>
     </ul>-->
+
+
+<!--<table>
+    <tr>
+        <td>
+            <div class="form-group">
+                <label class="control-label" for="amount_to">Amount received</label>
+                <div class="amount_to">
+                    <input name="amount_to" id="amount_to" type="text" value="" placeholder="Amount received" class="form-control" readonly/>
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <label class="control-label" for="fee">Hevon fee</label>
+                <div class="controls">
+                    <input name="fee" id="fee" type="text" value="" placeholder="Hevon fee" class="form-control" readonly/>
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="form-group">
+                <label class="control-label" for="rate">Rate</label>
+                <div class="controls">
+                    <input name="rate" id="rate" type="text" value="" placeholder="Rate" class="form-control" readonly/>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>-->

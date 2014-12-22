@@ -26,7 +26,7 @@ Template.transfer.rendered = function() {
     $('#amount_from').attr("max", userWalletAmount);
     $('#amount_from').val(userWalletAmount);
     //just for rendered --> we will convert just a currency in another
-    $('#ccy_from_' + ccy_to).hide();
+    //$('#ccy_from_' + ccy_to).hide();
     Session.set('ccy_from_val', userWalletAmount);
     Session.set('ccy_from', ccy_from);
 
@@ -35,6 +35,8 @@ Template.transfer.rendered = function() {
     //setting up attributes
     var ccyRef = Session.get('ccyRef');
     var value = userWalletAmount * ccyRef[ccy_from][ccy_to];
+    $('#midmarket_displayed').attr("value", ccyRef[ccy_from][ccy_to]);
+    $('#midmarket_displayed').val(ccyRef[ccy_from][ccy_to]);
 
     $('#amount_to').attr("value", value);
     $('#amount_to').attr("max", value);
@@ -89,121 +91,145 @@ Template.transfer.events({
             ccy_from_val = $('#amount_from').val(),
             ccy_to = Session.get('ccy_to'); //previous ccy selected, back to normal (not focused)
 
-        if($(e.target).val() != ccy_to){//to avoid people clicking on an already selected ccy
-            if($(e.target).val() == ccy_from){//when the new selected ccy is the already selected wallet, we change default wallet
-                console.log('Same ccies');
-                var new_ccy_from = '', noMatch = true;
-                for(var temp in ccyRef){
-                    if(temp.toString() != ccy_from){
-                        new_ccy_from = temp.toString();//in case no wallet properly matches
-                    }
-                    if(temp.toString() != ccy_from && userWallets[temp.toString()] > 0){
-                        new_ccy_from = temp.toString();
-                        noMatch = false;
-                        break;
-                    }
-                }
-                if(noMatch){//no wallet matched properly
-                    //TODO : display a message to refill Hevon account
-                    console.log('noMatch');
-                }
-                //FROM -------------------
-                //we will convert just a currency in another
-                $('#ccy_from_' + ccy_from).removeClass("btn-success").addClass("btn-info");
-                $('#ccy_from_' + new_ccy_from).removeClass("btn-info").addClass("btn-success");
-                $('#ccy_from_' + ccy_from).hide('slow');
-                $('#ccy_from_' + new_ccy_from).show('slow');
-                $('#ccy_from_' + ccy_to).show('slow');
-                Session.set('ccy_from', new_ccy_from);
-                //setting up attributes on FROM
-                var userWallet = userWallets[new_ccy_from];
-                $('#amount_from').attr("value", userWallet);
-                $('#amount_from').attr("max", userWallet);
-                $('#amount_from').val(userWallet);
-                Session.set('ccy_from_val', userWallet);
-
-                //TO -----------------------
-                $('#ccy_to_' + ccy_to).removeClass("btn-success").addClass("btn-info");
-                ccy_to = $(e.target).val(); //we set up the new ccy
-                Session.set('ccy_to', ccy_to);
-                $(e.target).removeClass("btn-info").addClass("btn-success"); //focus on the new one
-
-                //setting up attributes
-                valueConversion = userWallet * ccyRef[new_ccy_from][ccy_to];
-                $('#amount_to').attr("value", valueConversion);
-                $('#amount_to').attr("max", valueConversion);
-                $('#amount_to').val(valueConversion);
-                Session.set('ccy_to_val', valueConversion);
-
-            }
-            else{
-                $('#ccy_to_' + ccy_to).removeClass("btn-success").addClass("btn-info");
-                //we adapt the ccy_from selector
-                $('#ccy_from_' + ccy_to).show('slow');//we show the previously hidden ccy...
-                ccy_to = $(e.target).val(); //we set up the new ccy
-                Session.set('ccy_to', ccy_to);
-                $('#ccy_from_' + ccy_to).hide('slow');//...and we hide the equivalent currency on the wallets
-                $(e.target).removeClass("btn-info").addClass("btn-success"); //focus on the new one
-                //Session.set('ccy_from', null); //waiting for user selection
-
-                //setting up attributes
-                valueConversion = ccy_from_val * ccyRef[ccy_from][ccy_to];
-                $('#amount_to').attr("value", valueConversion);
-                $('#amount_to').attr("max", valueConversion);
-                $('#amount_to').val(valueConversion);
-                Session.set('ccy_to_val', valueConversion);
-            }
-
+        //if there were in warning before
+        if(ccy_from == ccy_to){
+            $('#ccy_from_' + ccy_from).removeClass("btn-warning").addClass("btn-success");
+            $('#ccy_to_' + ccy_to).removeClass("btn-warning").addClass("btn-success");
         }
 
+        if($(e.target).val() != ccy_to){//to avoid people clicking on an already selected ccy
 
-        /*
-        var ccy_to = Session.get('ccy_to');
+            $('#ccy_to_' + ccy_to).removeClass("btn-success").addClass("btn-info");
+            //we adapt the ccy_from selector
+            ccy_to = $(e.target).val(); //we set up the new ccy
+            Session.set('ccy_to', ccy_to);
+            $(e.target).removeClass("btn-info").addClass("btn-success"); //focus on the new one
 
-        //we come back to the normal color for the former ccy selected
-        $('#ccy_to_' + ccy_to).removeClass("btn-success").addClass("btn-info");
-        $(e.target).removeClass("btn-info").addClass("btn-success");
-        Session.set('ccy_to', $(e.target).val());
-
-        //setting up attributes
-        var userWallet = Meteor.user().profile.ccy[$(e.target).val()];
-        //$('#amount_from').attr("placeholder", userWallet);
-        $('#amount_from').attr("value", userWallet);
-        $('#amount_from').attr("max", userWallet);
-        $('#amount_from').val(userWallet);*/
+            if(ccy_from != ccy_to){
+                valueConversion = ccy_from_val * ccyRef[ccy_from][ccy_to];
+                $('#midmarket_displayed').attr("value", ccyRef[ccy_from][ccy_to]);
+                $('#midmarket_displayed').val(ccyRef[ccy_from][ccy_to]);
+            }
+            else{
+                valueConversion = $('#amount_from').val(); //TODO : put warning for client and forbid operation
+                $('#ccy_from_' + ccy_from).removeClass("btn-success").addClass("btn-warning");
+                $('#ccy_to_' + ccy_to).removeClass("btn-success").addClass("btn-warning");
+                $('#midmarket_displayed').attr("value", 1);
+                $('#midmarket_displayed').val(1);
+            }
+            //setting up attributes
+            $('#amount_to').attr("value", valueConversion);
+            $('#amount_to').attr("max", valueConversion);
+            $('#amount_to').val(valueConversion);
+            Session.set('ccy_to_val', valueConversion);
+        }
     },
     'click .btn_ccy_from': function(e) {
         e.preventDefault();
-        var ccy_from = Session.get('ccy_from');
 
-        //we come back to the normal color for the former ccy selected
-        $('#ccy_to_' + ccy_to).removeClass("btn-success").addClass("btn-info");
-        $(e.target).removeClass("btn-info").addClass("btn-success");
-        Session.set('ccy_to', $(e.target).val());
+        var ccy_from = Session.get('ccy_from'),
+            ccyRef = Session.get('ccyRef'),
+            valueConversion = 0,
+            userWallets = Session.get('userWallets'),
+            ccy_from_val = $('#amount_from').val(),
+            ccy_to = Session.get('ccy_to'); //previous ccy selected, back to normal (not focused)
 
+        //if there were in warning before
+        if(ccy_from == ccy_to){
+            $('#ccy_from_' + ccy_from).removeClass("btn-warning").addClass("btn-success");
+            $('#ccy_to_' + ccy_to).removeClass("btn-warning").addClass("btn-success");
+
+        }
+
+        if($(e.target).val() != ccy_from){//to avoid people clicking on an already selected ccy
+
+            //we come back to the normal color for the former ccy selected
+            $('#ccy_from_' + ccy_from).removeClass("btn-success").addClass("btn-info");
+            $(e.target).removeClass("btn-info").addClass("btn-success");
+            ccy_from = $(e.target).val(); //we set up the new ccy
+            Session.set('ccy_from', ccy_from);
+            ccy_from_val = userWallets[ccy_from];
+
+            //setting up attributes
+            if(ccy_from != ccy_to){
+                valueConversion = ccy_from_val * ccyRef[ccy_from][ccy_to];
+                $('#midmarket_displayed').attr("value", ccyRef[ccy_from][ccy_to]);
+                $('#midmarket_displayed').val(ccyRef[ccy_from][ccy_to]);
+            }
+            else{
+                valueConversion = ccy_from_val; //TODO : put warning for client and forbid operation
+                $('#ccy_from_' + ccy_from).removeClass("btn-success").addClass("btn-warning");
+                $('#ccy_to_' + ccy_to).removeClass("btn-success").addClass("btn-warning");
+                $('#midmarket_displayed').attr("value", 1);
+                $('#midmarket_displayed').val(1);
+            }
+
+            $('#amount_to').attr("value", valueConversion);
+            $('#amount_to').attr("max", valueConversion);
+            $('#amount_to').val(valueConversion);
+            Session.set('ccy_to_val', valueConversion);
+
+            $('#amount_from').attr("value", ccy_from_val);
+            $('#amount_from').attr("max", ccy_from_val);
+            $('#amount_from').val(ccy_from_val);
+            Session.set('ccy_from_val', ccy_from_val);
+
+        }
+
+    },
+    'keyup .amount_from': function(e) {
+        e.preventDefault();
+
+        var ccy_from = Session.get('ccy_from'),
+            ccyRef = Session.get('ccyRef'),
+            valueConversion = 0,
+            userWallets = Session.get('userWallets'),
+            ccy_from_val = $('#amount_from').val(),
+            ccy_to = Session.get('ccy_to'); //previous ccy selected, back to normal (not focused)
+
+        //ccy_from_val = userWallets[ccy_from];
 
         //setting up attributes
-        var userWallet = Meteor.user().profile.ccy[$(e.target).val()];
-        //$('#amount_from').attr("placeholder", userWallet);
-        $('#amount_from').attr("value", userWallet);
-        $('#amount_from').attr("max", userWallet);
-        $('#amount_from').val(userWallet);
+        if(ccy_from != ccy_to){
+            valueConversion = ccy_from_val * ccyRef[ccy_from][ccy_to];
+            //TODO : to add when amount rise --> rate lower according to internal rules
+            //$('#midmarket_displayed').attr("value", ccyRef[ccy_from][ccy_to]);
+            //$('#midmarket_displayed').val(ccyRef[ccy_from][ccy_to]);
+        }
+        else{
+            valueConversion = ccy_from_val; //TODO : put warning for client and forbid operation
+            //$('#midmarket_displayed').attr("value", 1);
+            //$('#midmarket_displayed').val(1);
+        }
+
+        $('#amount_to').attr("value", valueConversion);
+        $('#amount_to').attr("max", valueConversion);
+        $('#amount_to').val(valueConversion);
+        Session.set('ccy_to_val', valueConversion);
+        Session.set('ccy_from_val', ccy_from_val);
+
     },
     //"leaving" the amount input box
     'blur .amount_from': function(e) {
         e.preventDefault();
 
-        var amount = $(e.target).val();
+        /*var amount = $(e.target).val();
         console.log('hey : ' + amount);
-        console.log('test2 : ' + Session.get('ccy_to'));
+        console.log('test2 : ' + Session.get('ccy_to'));*/
 
     },
     'submit form': function(e) {
         e.preventDefault();
 
         var amount = $(e.target).find('[name=amount_from]').val();
+
+        console.log('hey : ' + Meteor.userId());
+        console.log('hey : ' + Session.get('ccy_from'));
         console.log('hey : ' + amount);
-        console.log('sdf');
+        console.log('hey : ' + amount);
+        console.log('hey : ' + amount);
+        console.log('hey : ' + amount);
+
         /*var post = {
             url: $(e.target).find('[name=url]').val(),
             title: $(e.target).find('[name=title]').val()
