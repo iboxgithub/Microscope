@@ -25,7 +25,6 @@ Meteor.publish('transaction_user', function() {
 });
 
 Meteor.publish('currencies', function() {
-  console.log('sdvvdfv');
   return Currencies.find();
 });
 

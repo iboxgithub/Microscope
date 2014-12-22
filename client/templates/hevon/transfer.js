@@ -221,34 +221,38 @@ Template.transfer.events({
     'submit form': function(e) {
         e.preventDefault();
 
-        var amount = $(e.target).find('[name=amount_from]').val();
+        var amount = $(e.target).find('[name=amount_from]').val(),
+            midmarket = $(e.target).find('[name=midmarket_displayed]').val();
 
-        console.log('hey : ' + Meteor.userId());
+        /*console.log('hey : ' + Meteor.userId());
         console.log('hey : ' + Session.get('ccy_from'));
         console.log('hey : ' + amount);
-        console.log('hey : ' + amount);
-        console.log('hey : ' + amount);
-        console.log('hey : ' + amount);
+        console.log('hey : ' + Session.get('ccy_to'));
+        console.log('hey : ' + midmarket);
+        console.log('hey : ' + 'hevon');*/
 
-        /*var post = {
-            url: $(e.target).find('[name=url]').val(),
-            title: $(e.target).find('[name=title]').val()
+        var params = {
+            id_user:Meteor.userId(),
+            ccy_from: Session.get('ccy_from'),
+            amount_from: amount,
+            ccy_to: Session.get('ccy_to'),
+            midmarket_displayed: midmarket,
+            date_max: new Date().toISOString()
         };
 
-        var errors = validatePost(post);
-        if (errors.title || errors.url)
-            return Session.set('postSubmitErrors', errors);
 
-        Meteor.call('postInsert', post, function(error, result) {
+        Meteor.call('webNewTransaction', params, function(error, result) {
             // display the error to the user and abort
-            if (error)
-                return throwError(error.reason);
+            if (error) {
+                console.log('Client ERROR : ' + error.reason);
+            }
+            else {
+                console.log('Client COOL : ' + JSON.stringify(result, null, 4));
+                $('#output').val(result.data.result.data.id + ' - ' + result.data.result.data.amount_received);
+            }
 
-            // show this result but route anyway
-            if (result.postExists)
-                throwError('This link has already been posted');
+            //Router.go('postPage', {_id: result._id});
+        });
 
-            Router.go('postPage', {_id: result._id});
-        });*/
     }
 });
